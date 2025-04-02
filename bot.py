@@ -1,20 +1,22 @@
-import os
+from flask import Flask, request
 import telebot
 
-# Получаем токен из переменных окружения
-TOKEN = os.getenv("BOT_TOKEN")
+app = Flask(__name__)
 
-# Проверяем, что токен существует, иначе выбрасываем ошибку
-if TOKEN is None:
-    raise ValueError("Токен не найден! Убедись, что переменная BOT_TOKEN установлена.")
-
-# Инициализируем бота
+# Получаем токен из переменной окружения
+TOKEN = 'YOUR_BOT_TOKEN'
 bot = telebot.TeleBot(TOKEN)
 
-# Пример обработчика для /start
-@bot.message_handler(commands=['start'])
-def send_welcome(message):
-    bot.reply_to(message, "Привет, я бот!")
+@app.route('/' + TOKEN, methods=['POST'])
+def webhook():
+    json_str = request.get_data().decode('UTF-8')
+    update = telebot.types.Update.de_json(json_str)
+    bot.process_new_updates([update])
+    return '!', 200
 
-# Запуск бота
-bot.polling()
+if __name__ == '__main__':
+    # Удаляем старые вебхуки и устанавливаем новый
+    bot.remove_webhook()
+    bot.set_webhook(url='https://your-app-name.onrender.com/' + TOKEN)
+    app.run(host="0.0.0.0", port=10000)  # Используем порт 10000, чтобы работал на Render
+
