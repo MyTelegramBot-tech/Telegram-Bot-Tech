@@ -4,7 +4,7 @@ import telebot
 app = Flask(__name__)
 
 # Получаем токен из переменной окружения
-TOKEN = 'YOUR_BOT_TOKEN'
+TOKEN = '7578950871:AAGfv2zmRr6x532S0H4zJ2h2k95c_PNKSB4'
 bot = telebot.TeleBot(TOKEN)
 
 @app.route('/' + TOKEN, methods=['POST'])
