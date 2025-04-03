@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request
 import telebot
-
+from handlers import *  # Импорт всех обработчиков
 app = Flask(__name__)
 
 # Получаем токен бота из переменной окружения
