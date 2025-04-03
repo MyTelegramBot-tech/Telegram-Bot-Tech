@@ -24,6 +24,6 @@ def index():
 
 if __name__ == '__main__':
     bot.remove_webhook()
-    bot.set_webhook(url=f'https://your-app-name.onrender.com/{TOKEN}')
+    bot.set_webhook(url=f'https://telegram-bot-tech.onrender.com/{TOKEN}')
     port = int(os.environ.get("PORT", 10000))  # Получаем порт от Render
     app.run(host="0.0.0.0", port=port)
