@@ -1,6 +1,7 @@
 from config import bot, TOKEN, WEBHOOK_URL
 from flask import Flask, request
 import telebot.types
+import handlers  # ← активирует все обработчики
 
 app = Flask(__name__)
 
