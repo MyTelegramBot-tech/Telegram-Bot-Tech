@@ -1,8 +1,10 @@
-# config.py
-import os
 from dotenv import load_dotenv
+import os
+import telebot
 
-# Загружаем переменные из .env файла
 load_dotenv()
 
-TOKEN = os.getenv('TOKEN')  # Получаем токен из переменной окружения
+TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+WEBHOOK_URL = os.getenv('WEBHOOK_URL')  # если используешь вебхук
+
+bot = telebot.TeleBot(TOKEN)
