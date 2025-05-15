@@ -1,14 +1,17 @@
-from dotenv import load_dotenv
-import os
-import telebot
+from config import bot, TOKEN, WEBHOOK_URL
+from flask import Flask, request
+import telebot.types
 
-load_dotenv()  # Загружаем переменные из .env
+app = Flask(__name__)
 
-TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')  # Получаем токен из .env
-bot = telebot.TeleBot(TOKEN)
+@app.route('/' + TOKEN, methods=['POST'])
+def webhook():
+    json_str = request.get_data().decode('UTF-8')
+    update = telebot.types.Update.de_json(json_str)
+    bot.process_new_updates([update])
+    return 'OK', 200
 
-@bot.message_handler(commands=['start'])
-def start(message):
-    bot.send_message(message.chat.id, "Привет! Я ваш бот!")
-
-bot.polling()
+if __name__ == '__main__':
+    bot.remove_webhook()
+    bot.set_webhook(url=WEBHOOK_URL)
+    app.run(host="0.0.0.0", port=10000)
