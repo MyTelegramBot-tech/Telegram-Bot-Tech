@@ -1,13 +1,14 @@
 import requests
+import os
+from dotenv import load_dotenv
 
-# Токен системного бота (который будет отправлять уведомления)
-MONITOR_BOT_TOKEN = '7755444138:AAGidsK28LFWnDxIgSW8KjnmOi9hOsxDRJw'
+# Загружаем .env переменные
+load_dotenv()
 
-# Твой chat_id
-CHAT_ID = '6894271949'
-
-# Токен основного бота, за которым следим
-TELEGRAM_BOT_TOKEN = '7578950871:AAGfv2zmRr6x532S0H4zJ2h2k95c_PNKSB4'
+# Получаем данные из переменных окружения
+TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+MONITOR_BOT_TOKEN = os.getenv('MONITOR_BOT_TOKEN')
+CHAT_ID = os.getenv('ALERT_CHAT_ID')
 
 def check_bot():
     url = f'https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getMe'
