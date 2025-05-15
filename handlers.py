@@ -1,7 +1,5 @@
 # handlers.py
-import telebot
-
-bot = telebot.TeleBot("YOUR_BOT_TOKEN")
+from config import bot  # ← импортируем ОДИН и тот же экземпляр
 
 @bot.message_handler(commands=['start'])
 def start(message):
